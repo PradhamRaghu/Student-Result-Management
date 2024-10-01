@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="login.css">
+    <title>Registration Form</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            <div class="row">
+                <label for="regId">RegNo</label>
+                <input type="text" id="regId" name="regId" required oninput="validateField(this, 'regno')">
+            </div>
+            <div class="row">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required oninput="validateField(this, 'password')">
+            </div>
+            <div class="row">
+                <button type="submit" onclick="studentPfp.html">Login</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateField(field, type) {
+            var isValid = false;
+            if (field.value) {
+                switch (type) {
+                    case 'regno':
+                        isValid = /^\d{2}[A-Z]{3}\d{4}$/.test(field.value);
+                        break;
+                    case 'password':
+                        isValid = field.value.length >= 8;
+                        break;
+                }
+            }
+
+            if (isValid) {
+                field.classList.remove('invalid');
+                field.classList.add('valid');
+            } else {
+                field.classList.remove('valid');
+                field.classList.add('invalid');
+            }
+        }
+
+        function validateForm() {
+            var fields = document.querySelectorAll('#registrationForm input');
+            var isValid = true;
+            fields.forEach(function (field) {
+                validateField(field, field.name);
+                if (field.classList.contains('invalid')) {
+                    isValid = false;
+                }
+            });
+            return isValid;
+        }
+    </script>
+</body>
+
+</html>
